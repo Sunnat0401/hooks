@@ -1,11 +1,16 @@
 import { useState, useCallback  } from 'react'
 import './App.css'
 import { useEffect, useMemo } from 'react'
+import Navbar from './Components/Navbar/Navbar';
+import { useTranslation } from 'react-i18next';
 const randomNumber =() =>{
   console.log("Creating randoom number");
  return  Math.floor(Math.random() *100)
 }
 const Counter = () =>{
+  const language  = localStorage.getItem('i18nextLng')
+
+  const {t , i18n} = useTranslation() 
    const [counter, setCounter] = useState(0)
    const [auto, setAuto] = useState(false)
    const getImagess = useCallback(()=>{
@@ -32,6 +37,8 @@ const Counter = () =>{
 
  }) , [counter])
    return(
+    <>
+  <Navbar/>    
     <div  className='w-full wh-100 bg-dark text-white d-flex justify-center align-items-center '>
       <div className='border w-50 p-5 rounded border-success border-opacity-50 d-flex align-items-center flex-column' >
         <div className='d-flex h-50 gap-2'>
@@ -47,6 +54,7 @@ const Counter = () =>{
         <button className='btn btn-primary w-25' onClick={onToggleAuto}>Auto</button>
       </div>
     </div>
+    </>
    )
 }
 const Slider = ({getImagess}) =>{
